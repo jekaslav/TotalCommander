@@ -1,0 +1,95 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Delor\\RiderProjects\\TotalCommander\\TotalCommander\\TotalCommander.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Delor\\RiderProjects\\TotalCommander\\TotalCommander\\TotalCommander.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Delor\\RiderProjects\\TotalCommander\\TotalCommander\\TotalCommander.csproj",
+        "projectName": "TotalCommander",
+        "projectPath": "C:\\Users\\Delor\\RiderProjects\\TotalCommander\\TotalCommander\\TotalCommander.csproj",
+        "packagesPath": "C:\\Users\\Delor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Delor\\RiderProjects\\TotalCommander\\TotalCommander\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Delor\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "GroupDocs.Viewer": {
+              "target": "Package",
+              "version": "[23.1.0, )"
+            },
+            "MessageBird": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "MessageBox": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "MessageFormat": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "MessagePack": {
+              "target": "Package",
+              "version": "[2.5.108, )"
+            },
+            "MessagePack.ImmutableCollection": {
+              "target": "Package",
+              "version": "[2.5.108, )"
+            },
+            "MessageParser.NET": {
+              "target": "Package",
+              "version": "[1.0.3.6, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0-preview.2.23128.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
