@@ -42,33 +42,13 @@
               "target": "Package",
               "version": "[23.1.0, )"
             },
-            "MessageBird": {
-              "target": "Package",
-              "version": "[4.0.0, )"
-            },
-            "MessageBox": {
-              "target": "Package",
-              "version": "[2.1.0, )"
-            },
-            "MessageFormat": {
-              "target": "Package",
-              "version": "[6.0.2, )"
-            },
-            "MessagePack": {
-              "target": "Package",
-              "version": "[2.5.108, )"
-            },
-            "MessagePack.ImmutableCollection": {
-              "target": "Package",
-              "version": "[2.5.108, )"
-            },
-            "MessageParser.NET": {
-              "target": "Package",
-              "version": "[1.0.3.6, )"
-            },
             "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
               "version": "[8.0.0-preview.2.23128.3, )"
+            },
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             }
           },
           "imports": [

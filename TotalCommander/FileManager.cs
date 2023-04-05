@@ -2,33 +2,33 @@
 
 public class FileManager
 {
-    public void CreateDir()
+    
+    public void CreateDir(string[] args)
     {
-        Console.WriteLine("Enter a directory name:");
-        var newDir = Console.ReadLine();
+        var newDir = string.Join("", args);
         
         if (string.IsNullOrWhiteSpace(newDir) || Path.GetInvalidFileNameChars()
                 .Any(c => newDir.Contains(c)))
         {
-            throw new Exception("Incorrect");
+            throw new ArgumentException("Incorrect name");
         }
         
         GetPath();
         
         Directory.CreateDirectory(newDir);
-
+        Console.SetCursorPosition(3, 44);
         Console.WriteLine($"Directory {newDir} is created.");
+        Console.SetCursorPosition(3, 45);
     }
 
-    public void RemoveDir()
+    public void RemoveDir(string[] args)
     {
-        Console.WriteLine("Enter a directory name:");
-        var rmNameDir = Console.ReadLine();
+        var rmNameDir = string.Join("", args);
         
         if (string.IsNullOrWhiteSpace(rmNameDir) || Path.GetInvalidFileNameChars()
                 .Any(c => rmNameDir.Contains(c)))
         {
-            throw new Exception("Incorrect");
+            throw new ArgumentException("Incorrect name");
         }
         
         GetPath();
@@ -37,23 +37,26 @@ public class FileManager
         {
             Directory.Delete(rmNameDir);
         }
+        
+        
         else
         {
-            throw new Exception("error");
+            throw new ArgumentException("Directory is not found");
         }
-
+        
+        Console.SetCursorPosition(3, 44);
         Console.WriteLine($"Directory {rmNameDir} is removed.");
+        Console.SetCursorPosition(3, 45);
     }
 
-    public void RemoveFile()
+    public void RemoveFile(string[] args)
     {
-        Console.WriteLine("Enter a file name:");
-        var rmNameFile = Console.ReadLine();
+        var rmNameFile = string.Join("", args);
         
         if (string.IsNullOrWhiteSpace(rmNameFile) || Path.GetInvalidFileNameChars()
                 .Any(c => rmNameFile.Contains(c)))
         {
-            throw new Exception("Incorrect");
+            throw new ArgumentException("Incorrect name");
         }
         
         GetPath();
@@ -64,30 +67,31 @@ public class FileManager
         }
         else
         {
-            throw new Exception("where is the file?");
+            Console.SetCursorPosition(3, 44);
+            Console.WriteLine("File is not found");
+            Console.SetCursorPosition(0, 44);
+            Thread.Sleep(3000);
+            Console.Write("║ ".PadRight(75, ' ') + "║");
         }
-
+        
+        Console.SetCursorPosition(3, 44);
         Console.WriteLine($"File {rmNameFile} is removed.");
+        Console.SetCursorPosition(3, 45);
     }
     
-    public void CopyFile()
+    public void CopyFile(string copyName, string trgName)
     {
-        Console.WriteLine("Enter a file name in current directory:");
-        var copyName = Console.ReadLine();
-    
+        
         if (string.IsNullOrWhiteSpace(copyName) || Path.GetInvalidPathChars()
                 .Any(c => copyName.Contains(c)))
         {
-            throw new Exception("Incorrect path to the file.");
+            throw new ArgumentException("Incorrect name");
         }
-        
-        Console.WriteLine("Enter a target name in the new directory for the file:");
-        var trgName = Console.ReadLine();
         
         if (string.IsNullOrWhiteSpace(trgName) || Path.GetInvalidPathChars()
                 .Any(c => copyName.Contains(c)))
         {
-            throw new Exception("Incorrect path to the file.");
+            throw new ArgumentException("Incorrect target path name");
         }
     
         if (File.Exists(copyName) || Directory.Exists(trgName))
@@ -96,33 +100,30 @@ public class FileManager
         }
         else
         {
-            throw new Exception("where is the file?");
+            throw new ArgumentException("File is not found");
         }
-    
+        
+        Console.SetCursorPosition(1, 44);
         Console.WriteLine($"File {copyName} is copied");
+        Console.SetCursorPosition(3, 45);
     }
 
-    public void CopyDir()
+    public void CopyDir(string sPath, string tPath)
     {
-        Console.WriteLine("enter source dir:");
-        var sPath = Console.ReadLine();
-        
+
         if (string.IsNullOrWhiteSpace(sPath) || Path.GetInvalidPathChars()
-                .Any(c => sPath.Contains(c)))
+                .Any(sPath.Contains))
         {
-            throw new Exception("Incorrect path.");
+            throw new ArgumentException("Incorrect name");
         }
 
-        Console.WriteLine("enter target dir:");
-        var tPath = Console.ReadLine();
-        
         if (string.IsNullOrWhiteSpace(tPath) || Path.GetInvalidPathChars()
-                .Any(c => tPath.Contains(c)))
+                .Any(tPath.Contains))
         {
-            throw new Exception("Incorrect path.");
+            throw new ArgumentException("Incorrect target path name");
         }
 
-        var sDir = new DirectoryInfo(GetPath() + sPath); // нужно создавать так экземпляры класса или обращаться напрямую, когда используем в циклах?
+        var sDir = new DirectoryInfo(GetPath() + sPath);
         var tDir = new DirectoryInfo("C:\\" + tPath + "\\" + Path.GetFileName(sPath));
 
         if (tDir.Exists)
@@ -135,33 +136,29 @@ public class FileManager
             file.CopyTo(Path.Combine(tDir.FullName, file.Name), true);
         }
 
-        foreach (var subDir in sDir.GetDirectories())                // подпапки
+        foreach (var subDir in sDir.GetDirectories())
         {
             var targetSubDir = tDir.CreateSubdirectory(subDir.Name);    
             CopyFolderRecursive(subDir, targetSubDir);
         }
         
+        Console.SetCursorPosition(1, 44);
         Console.WriteLine($"File {sPath} is copied");
+        Console.SetCursorPosition(3, 45);
     }
 
-    public void MoveFile()
+    public void MoveFile(string fName, string tPath)
     {
-        Console.WriteLine("enter a file name:");
-        var fName = Console.ReadLine();
-        
         if (string.IsNullOrWhiteSpace(fName) || Path.GetInvalidFileNameChars()
                 .Any(c => fName.Contains(c)))
         {
-            throw new Exception("Incorrect");
+            throw new ArgumentException("Incorrect name");
         }
-        
-        Console.WriteLine("enter a target path:");
-        var tPath = Console.ReadLine();
-        
+
         if (string.IsNullOrWhiteSpace(tPath) || Path.GetInvalidPathChars()
-                .Any(c => tPath.Contains(c)))
+                .Any(tPath.Contains))
         {
-            throw new Exception("Incorrect path to the file.");
+            throw new ArgumentException("Incorrect target path name");
         }
 
         if (File.Exists(fName))
@@ -170,28 +167,26 @@ public class FileManager
         }
         else
         {
-            throw new FileNotFoundException("where is the file");
+            throw new ArgumentException("File is not found");
         }
+        
+        Console.SetCursorPosition(1, 44);
+        Console.WriteLine($"File {fName} is moved");
+        Console.SetCursorPosition(3, 45);
     }
 
-    public void MoveDir()
+    public void MoveDir(string dName, string tPath)
     {
-        Console.WriteLine("Enter the directory name:");
-        var dName = Console.ReadLine();
-        
         if (string.IsNullOrWhiteSpace(dName) || Path.GetInvalidFileNameChars()
                 .Any(c => dName.Contains(c)))
         {
-            throw new Exception("Incorrect");
+            throw new ArgumentException("Incorrect name");
         }
         
-        Console.WriteLine("Enter a target path for the directory:");
-        var tPath = Console.ReadLine();
-        
         if (string.IsNullOrWhiteSpace(tPath) || Path.GetInvalidPathChars()
-                .Any(c => tPath.Contains(c)))
+                .Any(tPath.Contains))
         {
-            throw new Exception("Incorrect path.");
+            throw new ArgumentException("Incorrect target path name");
         }
 
         if (Directory.Exists(dName))
@@ -200,7 +195,7 @@ public class FileManager
         }
         else
         {
-            throw new DirectoryNotFoundException("where is the directory");
+            throw new ArgumentException("Directory is not found");
         }
         
         var sDir = new DirectoryInfo(GetPath() + dName);
@@ -211,8 +206,32 @@ public class FileManager
             var targetSubDir = tDir.CreateSubdirectory(subDir.Name);
             CopyFolderRecursive(subDir, targetSubDir);
         }
+        
+        Console.SetCursorPosition(1, 44);
+        Console.WriteLine($"Directory {dName} is moved");
+        Console.SetCursorPosition(3, 45);
     }
     
+    public void FileViewInfo(string[] args)
+    {
+        var fileName = string.Join("", args);
+        var fileInfo = new FileInfo(fileName);
+        
+        if (fileInfo.Exists)
+        {
+            Console.SetCursorPosition(2, 41);
+            Console.WriteLine("Size:" + fileInfo.Length + "bytes");
+            Console.SetCursorPosition(2, 42);
+            Console.WriteLine("Created:" + fileInfo.CreationTime);
+            Console.SetCursorPosition(2, 43);
+            Console.WriteLine("Last mod:" + fileInfo.LastWriteTime);
+        }
+        else
+        {
+            throw new ArgumentException("Incorrect name of the file");
+        }
+        Console.SetCursorPosition(3, 45);
+    }
     private static void CopyFolderRecursive(DirectoryInfo source, DirectoryInfo target)
     {
         // Copy all files
